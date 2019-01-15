@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  proxy:
+    env_file:
+      - ./.env.dist
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+      args:
+        DOMAIN:
+    volumes:
+      - letsencrypt_certs:/etc/letsencrypt
+      - letsencrypt_www:/var/lib/letsencrypt
+    command: /bin/bash /proxy/start.sh "$NOSSL"
+    networks:
+      - frontend
+      - internal
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  letsencrypt:
+    env_file:
+      - ./.env.dist
+      - ./.env
+    image: certbot/certbot
+    volumes:
+      - letsencrypt_certs:/etc/letsencrypt
+      - letsencrypt_www:/var/lib/letsencrypt
+
+  app:
+    env_file:
+      - ./.env.dist
+      - ./.env
+    image: $APPLICATION
+    restart: always
+    networks:
+      - internal
+
+networks:
+  frontend:
+  internal:
+    internal: true
+
+volumes:
+  letsencrypt_certs: ~
+  letsencrypt_www: ~

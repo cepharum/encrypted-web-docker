@@ -1,0 +1,6 @@
+FROM nginx:stable
+
+COPY proxy/ /proxy/
+
+RUN ln -s /etc/letsencrypt/live/$DOMAIN /etc/nginx/certs && \
+	chmod a+x /proxy/start.sh
