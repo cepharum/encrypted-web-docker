@@ -26,7 +26,11 @@ services:
     env_file:
       - ./.env.dist
       - ./.env
-    image: certbot/certbot
+    build:
+      context: .
+      dockerfile: Dockerfile.letsencrypt
+      args:
+        DOMAIN:
     volumes:
       - letsencrypt_certs:/etc/letsencrypt
       - letsencrypt_www:/var/lib/letsencrypt

@@ -1,0 +1,7 @@
+FROM certbot/certbot
+
+COPY letsencrypt.sh /letsencrypt.sh
+
+RUN chmod 0755 /letsencrypt.sh
+
+ENTRYPOINT ["/bin/sh", "/letsencrypt.sh"]
