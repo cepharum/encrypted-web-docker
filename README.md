@@ -28,6 +28,8 @@ Copy file **.env.dist** to **.env** and open the latter in text editor for confi
 
 This variable is naming sole domain the certificate for running HTTPS will be issued for. Make sure the selected domain is actually addressing the host running this service.
 
+Multiple domains may be provided in DOMAIN separated by comma. This results in a multi-SAN certificate fetched.
+
 #### APPLICATION
 
 This is the name of a docker image describing the web application exposing access on port 80. Put the name of your desired application's image here.
