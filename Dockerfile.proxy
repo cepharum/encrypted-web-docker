@@ -6,4 +6,6 @@ COPY proxy/ /proxy/
 
 RUN rm -Rf /etc/nginx/certs && \
 	ln -s "/etc/letsencrypt/live/${DOMAIN%%,*}" /etc/nginx/certs && \
-	chmod a+x /proxy/start.sh
+	chmod a+x /proxy/start.sh /proxy/configure.sh && \
+	/proxy/configure.sh && \
+	rm /proxy/configure.sh
