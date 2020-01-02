@@ -44,6 +44,8 @@ services:
     networks:
       - internal
 
+  ##SERVICE_INJECTION##
+
 networks:
   frontend:
   internal:
